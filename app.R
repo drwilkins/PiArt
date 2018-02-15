@@ -7,7 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
+library(shiny);require(ggplot2)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -35,6 +35,19 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
+  
+n=8 #default 100
+
+angulos=seq(from=0, by=2*pi/n, length.out=n)
+
+radio=1:n#rep(1,8)#1:n
+
+puntos=data.frame(x=radio*cos(angulos), y=radio*sin(angulos))
+
+ggplot() + 
+  geom_point(aes(x = x, y = y), data=puntos)
+  
+  
    output$distPlot <- renderPlot({
       # generate bins based on input$bins from ui.R
       x    <- faithful[, 2] 
